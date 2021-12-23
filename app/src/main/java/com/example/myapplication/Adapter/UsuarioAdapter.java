@@ -28,7 +28,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
     @Override
     public UsuarioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //inflating and returning our view holder
         LayoutInflater inflater = LayoutInflater.from(Ctx);
         View view = inflater.inflate(R.layout.item_usuario, null);
         return new UsuarioViewHolder(view);
@@ -42,9 +41,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.textViewID.setText(usuario.getIdevaluador());
         holder.textViewNombre.setText(usuario.getNombres());
         holder.textViewArea.setText(usuario.getArea());
-
-        Glide.with(Ctx)
-                .load(usuario.getImgJPG()).error(R.drawable.foto)
+        Glide.with(Ctx).load(usuario.getImgJPG()).error(R.drawable.foto)
                 .into(holder.imageView);
 
     }
@@ -66,7 +63,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             textViewID= itemView.findViewById(R.id.txtID);
             textViewNombre = itemView.findViewById(R.id.txtNombre);
             textViewArea = itemView.findViewById(R.id.txtArea);
-
             imageView = itemView.findViewById(R.id.imgAvatar);
         }
     }

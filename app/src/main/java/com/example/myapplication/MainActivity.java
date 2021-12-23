@@ -31,38 +31,24 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
 
     RecyclerView recyclerView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
-//        btnLista.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Busqueda(txtJournalID.getText().toString());
-//            }
-//        });
         Busqueda();
-
     }
 
     private void Busqueda ()
     {
         Map<String, String> datos = new HashMap<String, String>();
-
         WebService ws= new WebService("https://www.uealecpeterson.net/ws/listadoevaluadores.php",
                 datos, MainActivity.this, MainActivity.this);
         ws.execute("GET");
-
         try {
             processFinish(datos.toString());
         } catch (JSONException e) {
@@ -77,21 +63,12 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
         JSONObject JSONlista =  new JSONObject(result);
         JSONArray jsonArray = JSONlista.getJSONArray("listaaevaluador");
         try {
-            //JSONArray JSONlistaUsuarios=  JSONlista.getJSONArray("");
-
             lstUsuarios = Usuario.JsonObjectsBuild(jsonArray);
-
             UsuarioAdapter adapatorUsuario = new UsuarioAdapter(this, lstUsuarios);
-
             int resId = R.anim.layout_animation_down_to_up;
-            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getApplicationContext(),
-                    resId);
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getApplicationContext(),resId);
             recyclerView.setLayoutAnimation(animation);
-
             recyclerView.setAdapter(adapatorUsuario);
-
-
-
         }catch (JSONException e)
         {
             Toast.makeText(this.getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
